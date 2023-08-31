@@ -6,7 +6,7 @@ export const getRoutes = (url: string, commandId?: string): IRouting => {
     endpoints: {
       create: {
         method: HttpMethod.POST,
-        endpoint: 'commands',
+        endpoint: 'commands/create',
       },
       delete: {
         method: HttpMethod.DELETE,

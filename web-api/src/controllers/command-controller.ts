@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Command } from '../models/Command'
 
-export const createCommand = async (req: Request, res: Response) => {
+export const create = async (req: Request, res: Response) => {
   try {
     const { command, description } = req.body
 
@@ -11,9 +11,22 @@ export const createCommand = async (req: Request, res: Response) => {
     })
     await cmd.save()
 
-    res.status(201).json(command)
+    res.status(201).json(cmd)
   } catch (error) {
     res.status(500).json({ error: 'Failed to create command' })
+  }
+}
+
+export const deleteCmd = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const command = await Command.findByIdAndDelete(id)
+    if (!command) {
+      return res.status(404).json({ error: 'Project not found' })
+    }
+    res.json({ message: 'Project deleted successfully' })
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete project' })
   }
 }
 /*
@@ -83,16 +96,5 @@ export const updateProject = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteProject = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const project = await Project.findByIdAndDelete(id);
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
-    }
-    res.json({ message: 'Project deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to delete project' });
-  }
-};
+
 */

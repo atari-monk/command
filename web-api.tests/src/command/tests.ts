@@ -6,14 +6,12 @@ describe('Test Command endpoints', () => {
   const url = 'http://localhost:3000/api/v1'
   const command = {
     _id: '',
-    name: 'test-project',
+    command: 'test-command',
     description: 'test-description',
-    userId: '',
-    isVisible: true,
   }
   const commandPatch = {
     ...command,
-    name: 'test-project-patch',
+    command: 'test-command-patch',
     description: 'test-description-patch',
   }
   const tester = new ApiTester()
@@ -31,6 +29,7 @@ describe('Test Command endpoints', () => {
       expect(response.data).to.include(command)
     } catch (error) {
       console.log(error)
+      throw error
     }
   })
 

@@ -1,5 +1,6 @@
 import './App.css'
 import CommandForm from './components/CommandForm'
+import CommandList from './components/CommandList '
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
         <h1>Command</h1>
       </header>
       <main>
-        {/* <CommandApiComponent /> */}
+        <CommandList />
         <CommandForm />
       </main>
     </div>

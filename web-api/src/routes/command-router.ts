@@ -3,7 +3,7 @@ import * as commandController from '../controllers/command-controller'
 
 const router = express.Router()
 
-//router.get('/all', commandController.getAllProjects)
+router.get('/all', commandController.getAllCommands)
 router.post('/create', commandController.create)
 // router.get('/user', commandController.getProjects)
 router

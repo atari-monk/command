@@ -29,16 +29,18 @@ export const deleteCmd = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Failed to delete project' })
   }
 }
-/*
-export const getAllProjects = async (_req: Request, res: Response) => {
+
+export const getAllCommands = async (_req: Request, res: Response) => {
   try {
-    const allProjects = await Project.find({}, '-__v');
-    res.json(allProjects);
+    res.json(await Command.find({}, '-__v').sort({ createdAt: -1 }).exec())
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Failed to fetch projects' });
+    console.log(error)
+    res.status(500).json({ error: 'Failed to fetch commands' })
   }
-};
+}
+
+/*
+
 
 export const getProjects = async (req: Request, res: Response) => {
   try {

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { ICommandFormProps } from './ICommandFormProps'
 import { ICommand } from './ICommand'
+import { ICommandFormProps } from './ICommandFormProps'
 
 const CommandForm: React.FC<ICommandFormProps> = ({
   initialCommand,
   onUpdate,
+  onCancelEdit, // Add onCancelEdit prop
 }) => {
   const [command, setCommand] = useState<ICommand | null>(initialCommand)
   const [newCommand, setNewCommand] = useState<ICommand>({
@@ -14,27 +15,36 @@ const CommandForm: React.FC<ICommandFormProps> = ({
     description: '',
     createdAt: new Date(),
   })
+  const [isEditing, setIsEditing] = useState<boolean>(false) // Track edit state
 
   useEffect(() => {
     setCommand(initialCommand)
+    setIsEditing(!!initialCommand && !!initialCommand._id)
   }, [initialCommand])
-
-  const isEditing = !!command
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     if (!isEditing) {
-      // If not editing, update the new command state
       setNewCommand({ ...newCommand, [name]: value })
     } else if (command) {
-      // If editing, update the existing command state
       setCommand({ ...command, [name]: value })
     }
   }
 
+  const handleCancelEdit = () => {
+    setCommand(null)
+    setNewCommand({
+      _id: '',
+      command: '',
+      description: '',
+      createdAt: new Date(),
+    })
+    setIsEditing(false)
+    onCancelEdit() // Call onCancelEdit prop to notify the parent component
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('state:', isEditing, command, newCommand)
     if (isEditing) {
       try {
         const response = await axios.patch(
@@ -43,14 +53,11 @@ const CommandForm: React.FC<ICommandFormProps> = ({
         )
 
         onUpdate(response.data)
-
-        // Reset the state for editing
         setCommand(null)
       } catch (error) {
         console.error('Error updating command:', error)
       }
     } else {
-      // If not editing, it's a new command
       try {
         const response = await axios.post(
           'http://localhost:3000/api/v1/commands/create',
@@ -58,8 +65,6 @@ const CommandForm: React.FC<ICommandFormProps> = ({
         )
 
         onUpdate(response.data)
-
-        // Reset the state for a new command
         setNewCommand({
           _id: '',
           command: '',
@@ -75,9 +80,7 @@ const CommandForm: React.FC<ICommandFormProps> = ({
   return (
     <div>
       <h2>{isEditing ? 'Edit Command' : 'Create a Command'}</h2>
-      {isEditing ? (
-        <button onClick={() => setCommand(null)}>Cancel Edit</button>
-      ) : null}
+      {isEditing && <button onClick={handleCancelEdit}>Cancel Edit</button>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="command">Command:</label>

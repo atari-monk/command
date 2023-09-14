@@ -1,6 +1,6 @@
 export interface ICommand {
-  _id: string;
-  command: string;
-  description: string;
-  createdAt: Date;
+  _id: string
+  command: string
+  description: string
+  createdAt: Date
 }

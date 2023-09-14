@@ -1,44 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { ICommand } from './ICommand';
+import React from 'react'
+import axios from 'axios'
+import { ICommandListProps } from './ICommandListProps'
 
-interface ICommandListProps {
-  setEditingCommand: (command: ICommand | null) => void;
-}
-
-const CommandList: React.FC<ICommandListProps> = ({ setEditingCommand }) => {
-  const [commands, setCommands] = useState<ICommand[]>([]);
-
-  const fetchCommands = async () => {
-    try {
-      const response = await axios.get<ICommand[]>(
-        'http://localhost:3000/api/v1/commands/all'
-      );
-      setCommands(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCommands();
-  }, []);
-
-  const handleEdit = (command: ICommand) => {
-    setEditingCommand(command); // Set the editingCommand in the parent component
-  };
-
+const CommandList: React.FC<ICommandListProps> = ({
+  commands,
+  onEdit,
+  onDelete,
+}) => {
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:3000/api/v1/commands/${id}`);
-      // Remove the deleted command from the list
-      setCommands((prevCommands) =>
-        prevCommands.filter((cmd) => cmd._id !== id)
-      );
+      await axios.delete(`http://localhost:3000/api/v1/commands/${id}`)
+      onDelete(id) // Notify the parent component to remove the deleted command
     } catch (error) {
-      console.error('Error deleting command:', error);
+      console.error('Error deleting command:', error)
     }
-  };
+  }
 
   return (
     <div>
@@ -56,13 +32,13 @@ const CommandList: React.FC<ICommandListProps> = ({ setEditingCommand }) => {
               <strong>Created At:</strong>{' '}
               {new Date(command.createdAt).toLocaleString()}
             </div>
-            <button onClick={() => handleEdit(command)}>Edit</button>
+            <button onClick={() => onEdit(command)}>Edit</button>
             <button onClick={() => handleDelete(command._id)}>Delete</button>
           </li>
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default CommandList;
+export default CommandList

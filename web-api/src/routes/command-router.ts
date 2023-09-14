@@ -9,7 +9,7 @@ router.post('/create', commandController.create)
 router
   .route('/:id')
   //.get(commandController.getProjectById)
-  //.patch(commandController.updateProject)
+  .patch(commandController.updateCommand)
   .delete(commandController.deleteCmd)
 
 export default router

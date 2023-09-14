@@ -46,6 +46,17 @@ describe('Test Command endpoints', () => {
     }
   })
 
+  it('should test PATCH request successfully', async () => {
+    try {
+      const response = await tester.patch('update', commandPatch)
+      expect(response.status).to.equal(200)
+      expect(response.data).to.include(commandPatch)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  })
+
   it('should test DELETE request successfully', async () => {
     const response = await tester.delete('delete')
     expect(response.status).to.equal(200)

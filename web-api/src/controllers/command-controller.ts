@@ -39,64 +39,28 @@ export const getAllCommands = async (_req: Request, res: Response) => {
   }
 }
 
-/*
-
-
-export const getProjects = async (req: Request, res: Response) => {
+export const updateCommand = async (req: Request, res: Response) => {
   try {
-    const userId = req.query.userId;
-    if (!userId) {
-      return res.status(400).json({ error: 'userId parameter is missing' });
-    }
-    let query: any = { userId };
-    const projects = await Project.find(query, { __v: 0 });
-    const filteredProjects = projects.filter((project) => project.isVisible);
-    res.json(filteredProjects);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch Projects' });
-  }
-};
+    const { id } = req.params
+    const { command, description } = req.body
 
-export const getProjectById = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const userId = req.query.userId;
-    if (!userId) {
-      return res.status(400).json({ error: 'userId parameter is missing' });
-    }
-    const project = await Project.findOne({ _id: id, userId }, { __v: 0 });
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
-    }
-    res.json(project);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch project' });
-  }
-};
+    const existingCommand = await Command.findById(id)
 
-export const updateProject = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { name, description } = req.body;
-
-    const project = await Project.findById(id);
-    if (!project) {
-      return res.status(404).json({ error: 'Project not found' });
+    if (!existingCommand) {
+      return res.status(404).json({ error: 'Command not found' })
     }
 
-    if (name) {
-      project.name = name;
+    if (command) {
+      existingCommand.command = command
     }
     if (description) {
-      project.description = description;
+      existingCommand.description = description
     }
+    existingCommand.updatedAt = new Date(Date.now())
 
-    await project.save();
-    res.json(project);
+    await existingCommand.save()
+    res.json(existingCommand)
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update project' });
+    res.status(500).json({ error: 'Failed to update command' })
   }
-};
-
-
-*/
+}

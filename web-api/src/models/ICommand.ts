@@ -4,4 +4,5 @@ export default interface ICommand extends Document {
   command: string
   description: string
   createdAt: Date
+  updatedAt: Date
 }

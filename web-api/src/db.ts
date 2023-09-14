@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { utils } from './utils';
 
-const configPath = path.resolve(__dirname, './../config.env');
+const configPath = path.resolve(__dirname, './../.env');
 dotenv.config({ path: configPath });
 
 utils.printMatchingEnvVariableNames([

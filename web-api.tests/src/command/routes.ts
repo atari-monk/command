@@ -12,6 +12,10 @@ export const getRoutes = (url: string, commandId?: string): IRouting => {
         method: HttpMethod.GET,
         endpoint: 'commands/all',
       },
+      update: {
+        method: HttpMethod.PATCH,
+        endpoint: `commands/${commandId}`,
+      },
       delete: {
         method: HttpMethod.DELETE,
         endpoint: `commands/${commandId}`,

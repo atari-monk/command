@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CommandForm from './CommandForm';
-import ICommand from './ICommand';
+import { ICommand } from './ICommand';
 
-const CommandList: React.FC = () => {
+interface ICommandListProps {
+  setEditingCommand: (command: ICommand | null) => void;
+}
+
+const CommandList: React.FC<ICommandListProps> = ({ setEditingCommand }) => {
   const [commands, setCommands] = useState<ICommand[]>([]);
-  const [selectedCommand, setSelectedCommand] = useState<ICommand | null>(null);
 
   const fetchCommands = async () => {
     try {
@@ -23,16 +25,7 @@ const CommandList: React.FC = () => {
   }, []);
 
   const handleEdit = (command: ICommand) => {
-    setSelectedCommand(command);
-  };
-
-  const handleUpdate = (updatedCommand: ICommand) => {
-    setCommands((prevCommands) =>
-      prevCommands.map((cmd) =>
-        cmd._id === updatedCommand._id ? updatedCommand : cmd
-      )
-    );
-    setSelectedCommand(null); // Clear selected command after updating
+    setEditingCommand(command); // Set the editingCommand in the parent component
   };
 
   const handleDelete = async (id: string) => {
@@ -50,31 +43,24 @@ const CommandList: React.FC = () => {
   return (
     <div>
       <h2>List of Commands</h2>
-      {selectedCommand ? (
-        <CommandForm initialCommand={selectedCommand} onUpdate={handleUpdate} />
-      ) : (
-        <>
-          <ul>
-            {commands.map((command) => (
-              <li key={command._id}>
-                <div>
-                  <strong>Command:</strong> {command.command}
-                </div>
-                <div>
-                  <strong>Description:</strong> {command.description}
-                </div>
-                <div>
-                  <strong>Created At:</strong>{' '}
-                  {new Date(command.createdAt).toLocaleString()}
-                </div>
-                <button onClick={() => handleEdit(command)}>Edit</button>
-                <button onClick={() => handleDelete(command._id)}>Delete</button>
-              </li>
-            ))}
-          </ul>
-          <button onClick={() => setSelectedCommand(null)}>Cancel Edit</button>
-        </>
-      )}
+      <ul>
+        {commands.map((command) => (
+          <li key={command._id}>
+            <div>
+              <strong>Command:</strong> {command.command}
+            </div>
+            <div>
+              <strong>Description:</strong> {command.description}
+            </div>
+            <div>
+              <strong>Created At:</strong>{' '}
+              {new Date(command.createdAt).toLocaleString()}
+            </div>
+            <button onClick={() => handleEdit(command)}>Edit</button>
+            <button onClick={() => handleDelete(command._id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

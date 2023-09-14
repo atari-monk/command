@@ -57,7 +57,9 @@ function App() {
         <CommandList
           commands={commands}
           onEdit={handleEdit}
-          onDelete={() => {}}
+          onDelete={() => {
+            fetchCommands()
+          }}
         />
         <CommandForm
           initialCommand={editingCommand}

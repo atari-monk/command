@@ -8,7 +8,7 @@ export const getRoutes = (url: string, commandId?: string): IRouting => {
         method: HttpMethod.POST,
         endpoint: 'commands/create',
       },
-      getAll: {
+      all: {
         method: HttpMethod.GET,
         endpoint: 'commands/all',
       },

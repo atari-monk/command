@@ -8,6 +8,10 @@ export const getRoutes = (url: string, appId?: string): IRouting => {
         method: HttpMethod.POST,
         endpoint: 'apps/create',
       },
+      all: {
+        method: HttpMethod.GET,
+        endpoint: 'apps/all',
+      },
       update: {
         method: HttpMethod.PATCH,
         endpoint: `apps/${appId}`,

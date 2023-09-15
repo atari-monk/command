@@ -34,6 +34,19 @@ describe('Test App endpoints', () => {
     }
   })
 
+  it('should test GET request successfully', async () => {
+    try {
+      const response = await tester.get('all')
+
+      expect(response.status).to.equal(200)
+      const appDb = response.data.find((c: any) => c._id === app._id)
+      expect(appDb).to.include(app)
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  })
+
   it('should test PATCH request successfully', async () => {
     try {
       const response = await tester.patch('update', appPatch)

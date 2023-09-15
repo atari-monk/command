@@ -35,7 +35,7 @@ describe('Test Command endpoints', () => {
 
   it('should test GET request successfully', async () => {
     try {
-      const response = await tester.get('getAll')
+      const response = await tester.get('all')
 
       expect(response.status).to.equal(200)
       const cmdDb = response.data.find((c: any) => c._id === command._id)

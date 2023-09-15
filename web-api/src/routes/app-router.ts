@@ -9,7 +9,7 @@ router.post('/create', appController.create)
 router
   .route('/:id')
   //.get(apiController.getProjectById)
-  //.patch(apiController.updateapi)
-  .delete(appController.deleteCmd)
+  .patch(appController.update)
+  .delete(appController.remove)
 
 export default router

@@ -17,7 +17,7 @@ export const create = async (req: Request, res: Response) => {
   }
 }
 
-export const deleteCmd = async (req: Request, res: Response) => {
+export const remove = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
     const app = await App.findByIdAndDelete(id)
@@ -39,28 +39,28 @@ export const deleteCmd = async (req: Request, res: Response) => {
 //   }
 // }
 
-// export const updateApp = async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params
-//     const { App, description } = req.body
+export const update = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const { name, description } = req.body
 
-//     const existingApp = await App.findById(id)
+    const existingApp = await App.findById(id)
 
-//     if (!existingApp) {
-//       return res.status(404).json({ error: 'App not found' })
-//     }
+    if (!existingApp) {
+      return res.status(404).json({ error: 'App not found' })
+    }
 
-//     if (App) {
-//       existingApp.App = App
-//     }
-//     if (description) {
-//       existingApp.description = description
-//     }
-//     existingApp.updatedAt = new Date(Date.now())
+    if (name) {
+      existingApp.name = name
+    }
+    if (description) {
+      existingApp.description = description
+    }
+    existingApp.updatedAt = new Date(Date.now())
 
-//     await existingApp.save()
-//     res.json(existingApp)
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to update App' })
-//   }
-// }
+    await existingApp.save()
+    res.json(existingApp)
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update App' })
+  }
+}

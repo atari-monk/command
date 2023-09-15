@@ -22,11 +22,11 @@ export const deleteCmd = async (req: Request, res: Response) => {
     const { id } = req.params
     const command = await Command.findByIdAndDelete(id)
     if (!command) {
-      return res.status(404).json({ error: 'Project not found' })
+      return res.status(404).json({ error: 'Command not found' })
     }
-    res.json({ message: 'Project deleted successfully' })
+    res.json({ message: 'Command deleted successfully' })
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete project' })
+    res.status(500).json({ error: 'Failed to delete Command' })
   }
 }
 

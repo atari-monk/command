@@ -5,30 +5,30 @@ export const create = async (req: Request, res: Response) => {
   try {
     const { name, description } = req.body
 
-    const cmd = new App({
+    const app = new App({
       name,
       description,
     })
-    await cmd.save()
+    await app.save()
 
-    res.status(201).json(cmd)
+    res.status(201).json(app)
   } catch (error) {
     res.status(500).json({ error: 'Failed to create App' })
   }
 }
 
-// export const deleteCmd = async (req: Request, res: Response) => {
-//   try {
-//     const { id } = req.params
-//     const App = await App.findByIdAndDelete(id)
-//     if (!App) {
-//       return res.status(404).json({ error: 'Project not found' })
-//     }
-//     res.json({ message: 'Project deleted successfully' })
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to delete project' })
-//   }
-// }
+export const deleteCmd = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const app = await App.findByIdAndDelete(id)
+    if (!app) {
+      return res.status(404).json({ error: 'App not found' })
+    }
+    res.json({ message: 'App deleted successfully' })
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete App' })
+  }
+}
 
 // export const getAllApps = async (_req: Request, res: Response) => {
 //   try {

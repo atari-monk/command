@@ -4,12 +4,12 @@ import { getRoutes } from './routes'
 
 describe('Test Command endpoints', () => {
   const url = 'http://localhost:3000/api/v1'
-  const command = {
+  const command: ICommand = {
     _id: '',
     command: 'test-command',
     description: 'test-description',
   }
-  const commandPatch = {
+  const commandPatch: ICommand = {
     ...command,
     command: 'test-command-patch',
     description: 'test-description-patch',

@@ -6,9 +6,10 @@ const router = express.Router()
 //router.get('/all', apiController.getAllapis)
 router.post('/create', appController.create)
 // router.get('/user', apiController.getProjects)
-router.route('/:id')
-//.get(apiController.getProjectById)
-//.patch(apiController.updateapi)
-//.delete(apiController.deleteCmd)
+router
+  .route('/:id')
+  //.get(apiController.getProjectById)
+  //.patch(apiController.updateapi)
+  .delete(appController.deleteCmd)
 
 export default router

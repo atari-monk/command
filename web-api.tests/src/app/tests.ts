@@ -34,6 +34,17 @@ describe('Test App endpoints', () => {
     }
   })
 
+  it('should test PATCH request successfully', async () => {
+    try {
+      const response = await tester.patch('update', appPatch)
+      expect(response.status).to.equal(200)
+      expect(response.data).to.include(appPatch)
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  })
+
   it('should test DELETE request successfully', async () => {
     const response = await tester.delete('delete')
     expect(response.status).to.equal(200)

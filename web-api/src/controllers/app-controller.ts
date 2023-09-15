@@ -30,14 +30,14 @@ export const remove = async (req: Request, res: Response) => {
   }
 }
 
-// export const getAllApps = async (_req: Request, res: Response) => {
-//   try {
-//     res.json(await App.find({}, '-__v').sort({ createdAt: -1 }).exec())
-//   } catch (error) {
-//     console.log(error)
-//     res.status(500).json({ error: 'Failed to fetch Apps' })
-//   }
-// }
+export const all = async (_req: Request, res: Response) => {
+  try {
+    res.json(await App.find({}, '-__v').sort({ createdAt: -1 }).exec())
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Failed to fetch Apps' })
+  }
+}
 
 export const update = async (req: Request, res: Response) => {
   try {

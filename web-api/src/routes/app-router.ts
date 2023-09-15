@@ -3,7 +3,7 @@ import * as appController from '../controllers/app-controller'
 
 const router = express.Router()
 
-//router.get('/all', apiController.getAllapis)
+router.get('/all', appController.all)
 router.post('/create', appController.create)
 // router.get('/user', apiController.getProjects)
 router

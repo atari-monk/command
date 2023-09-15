@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Command } from '../models/Command'
+import { Command } from '../models/command/Command'
 
 export const create = async (req: Request, res: Response) => {
   try {

@@ -10,4 +10,4 @@ const schema = new Schema<IApp>({
   updatedAt: { type: Date, default: Date.now },
 })
 
-export const Command = mongoose.model<IApp>(typeName, schema)
+export const App = mongoose.model<IApp>(typeName, schema)

@@ -1,0 +1,15 @@
+.HomePage {
+  background-color: #3f4b62; /* Match the background color of the header */
+  /* min-height: 100vh;
+  height: auto;
+  overflow-y: hidden; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Text color */
+  font-size: calc(8px + 2vmin); /* Font size */
+  padding: 2rem;
+  text-align: center;
+  line-height: 1.6;
+}

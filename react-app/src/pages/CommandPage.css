@@ -1,0 +1,10 @@
+.CommandPage {
+  background-color: #282c34; /* Match the background color of the header */
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Text color */
+  /* font-size: calc(10px + 2vmin);  */
+}

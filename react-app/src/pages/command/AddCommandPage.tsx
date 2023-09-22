@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import CommandForm from '../components/CommandForm'
-import { ICommand } from '../components/ICommand'
+import CommandForm from '../../components/command/CommandForm'
+import { ICommand } from '../../components/command/ICommand'
 import './CommandPage.css'
-import CommandList from '../components/CommandList '
+import CommandList from '../../components/command/CommandList '
 
 function AddCommandPage() {
   // const [commands, setCommands] = useState<ICommand[]>([])

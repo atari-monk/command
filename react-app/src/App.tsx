@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import CommandPage from './pages/CommandPage'
+import CommandPage from './pages/command/CommandPage'
 import './App.css'
 import HomePage from './pages/HomePage'
 

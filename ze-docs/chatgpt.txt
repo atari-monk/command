@@ -5830,3 +5830,23 @@ const handleEdit = (command: ICommand) => {
   navigate(`/command-form?commandId=${command._id}`);
 };
 Now, when you click the "Edit" button in your ListCommandPage component, it will navigate to the CommandForm page with the commandId as a URL parameter using the useNavigate hook, which is the correct approach in React Router version 6.
+
+i changed password for db connection on my mongodb and yet my api still works, probably it checks password only on init
+ChatGPT
+It's possible that your API is caching the database connection when it initializes and doesn't reauthenticate with the new password for each request. This behavior is typical for many database libraries to optimize performance.
+
+To ensure that your API uses the updated password for the MongoDB connection, you can try the following steps, keeping in mind the goal of simplicity:
+
+Restart Your API: The simplest way to force your API to use the new database password is to restart it. This will cause the API to establish a new connection to the MongoDB database using the updated credentials.
+
+Check Connection Pool Settings: If your API uses a connection pool for MongoDB, you might want to check its configuration. Some connection pool libraries allow you to set a maximum connection lifetime or other options that could affect when the connection credentials are refreshed.
+
+Update Connection String: If you're using a connection string to connect to MongoDB, ensure that the updated password is correctly reflected in the connection string configuration within your API code. Make sure there are no hard-coded passwords in your code, and that the password change is properly propagated.
+
+Clear Caches: If your API or any of its dependencies have caching mechanisms in place, clear those caches. Cached connections may still be using the old credentials until the cache is cleared.
+
+Check for Connection Errors: Monitor your API logs for any connection errors or warnings related to MongoDB. These logs may provide insights into whether the API is attempting to reauthenticate with the new password.
+
+Test with a New Connection: To confirm that the new password is working as expected, try creating a new MongoDB connection using the updated credentials in a test script. This can help verify that the password change is effective.
+
+Remember to perform these steps with caution, especially in a production environment. Ensure you have backups and a rollback plan in case anything goes wrong during the process. Additionally, consider implementing a more secure and dynamic way to handle database credentials in your API to avoid such issues in the future, such as using environment variables or a secrets management system.

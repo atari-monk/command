@@ -10,7 +10,7 @@ const CommandList: React.FC<ICommandListProps> = ({
   const handleDelete = async (id: string) => {
     try {
       await axios.delete(`http://localhost:3000/api/v1/commands/${id}`)
-      onDelete(id) // Notify the parent component to remove the deleted command
+      onDelete(id)
     } catch (error) {
       console.error('Error deleting command:', error)
     }
@@ -18,7 +18,6 @@ const CommandList: React.FC<ICommandListProps> = ({
 
   return (
     <div>
-      <h2>List of Commands</h2>
       <ul>
         {commands.map((command) => (
           <li key={command._id}>

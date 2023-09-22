@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { ICommand } from './ICommand'
 import { ICommandFormProps } from './ICommandFormProps'
+import { useParams } from 'react-router-dom'
 
 const CommandForm: React.FC<ICommandFormProps> = ({
   initialCommand,
   onUpdate,
   onCancelEdit, // Add onCancelEdit prop
 }) => {
+  const { commandId } = useParams()
   const [command, setCommand] = useState<ICommand | null>(initialCommand)
   const [newCommand, setNewCommand] = useState<ICommand>({
     _id: '',
@@ -20,7 +22,7 @@ const CommandForm: React.FC<ICommandFormProps> = ({
   useEffect(() => {
     setCommand(initialCommand)
     setIsEditing(!!initialCommand && !!initialCommand._id)
-  }, [initialCommand])
+  }, [initialCommand, commandId])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -79,7 +81,7 @@ const CommandForm: React.FC<ICommandFormProps> = ({
 
   return (
     <div>
-      <h2>{isEditing ? 'Edit Command' : 'Create a Command'}</h2>
+      <h4>{isEditing ? 'Update Command' : 'Add Command'}</h4>
       {isEditing && <button onClick={handleCancelEdit}>Cancel Edit</button>}
       <form onSubmit={handleSubmit}>
         <div>
@@ -105,9 +107,7 @@ const CommandForm: React.FC<ICommandFormProps> = ({
           />
         </div>
         <div>
-          <button type="submit">
-            {isEditing ? 'Update Command' : 'Create Command'}
-          </button>
+          <button type="submit">{isEditing ? 'Update' : 'Submit'}</button>
         </div>
       </form>
     </div>
